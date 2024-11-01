@@ -1,0 +1,13 @@
+name: Reports
+version: '1.0-SNAPSHOT'
+main: org.fauli.reports.Main
+api-version: '1.20'
+
+commands:
+  report:
+  reports:
+  reportchat:
+    aliases:
+      rc:
+  acceptreport:
+  closereport:
