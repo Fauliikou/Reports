@@ -41,7 +41,7 @@ public class ReportChatCommand implements CommandExecutor {
         for (Map.Entry<Player, Report> entry : ReportCommand.reportPlayers.entrySet()) {
             Player reporter = entry.getKey();
 
-            Report.getTeamMember().sendMessage("§l§5Ｒᴇᴘᴏʀᴛ §8| §5" + player.getName() + " " + message);
+            Report.getTeamMember().sendMessage("§l§5ʀᴇᴘᴏʀᴛ §8| §5" + player.getName() + " " + message);
             reporter.sendMessage("§l§5Ｒᴇᴘᴏʀᴛ §8| §5" + player.getName() + " " + message);
         }
 

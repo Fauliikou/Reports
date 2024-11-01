@@ -38,10 +38,10 @@ public class ReportCommand implements CommandExecutor {
             return false;
         }
 
-        Component title = MiniMessage.miniMessage().deserialize("<b><gradient:#6ADDA6:#A8B47B>Ｒᴇᴘᴏʀᴛѕ</gradient></b>");
-        Component questionTitle = MiniMessage.miniMessage().deserialize("<b><gradient:#6ADDA6:#A8B47B>Ｑᴜᴇѕᴛɪᴏɴ</gradient></b>");
-        Component bugTitle = MiniMessage.miniMessage().deserialize("<b><gradient:#6ADDA6:#A8B47B>Ｂᴜɢ</gradient></b>");
-        Component playerReportTitle = MiniMessage.miniMessage().deserialize("<b><gradient:#6ADDA6:#A8B47B>Ｐʟᴀʏᴇʀ</gradient></b>");
+        Component title = MiniMessage.miniMessage().deserialize("<b><gradient:#6ADDA6:#A8B47B>ʀᴇᴘᴏʀᴛѕ</gradient></b>");
+        Component questionTitle = MiniMessage.miniMessage().deserialize("<b><gradient:#6ADDA6:#A8B47B>ǫᴜᴇѕᴛɪᴏɴ</gradient></b>");
+        Component bugTitle = MiniMessage.miniMessage().deserialize("<b><gradient:#6ADDA6:#A8B47B>ʙᴜɢ</gradient></b>");
+        Component playerReportTitle = MiniMessage.miniMessage().deserialize("<b><gradient:#6ADDA6:#A8B47B>ᴘʟᴀʏᴇʀ</gradient></b>");
 
         Component questionLore = MiniMessage.miniMessage().deserialize("<b><gradient:#6ADDA6:#A8B47B>Ask a Question!</gradient></b>");
         Component bugLore = MiniMessage.miniMessage().deserialize("<b><gradient:#6ADDA6:#A8B47B>Report a bug!</gradient></b>");
