@@ -47,30 +47,31 @@ public class ReportCommand implements CommandExecutor {
         Component bugLore = MiniMessage.miniMessage().deserialize("<b><gradient:#6ADDA6:#A8B47B>Report a bug!</gradient></b>");
         Component playerReportLore = MiniMessage.miniMessage().deserialize("<b><gradient:#6ADDA6:#A8B47B>Report a Player!</gradient></b>");
 
-        InventoryManager inventoryManager = new InventoryManager(player, 9 * 3, title, true, true);
+        InventoryManager inventoryManager = new InventoryManager(title, 9 * 3, true);
 
-        inventoryManager.setItem(new CustomItem(11, new ItemBuilder(Material.OAK_SIGN).name(questionTitle).lore(List.of(questionLore)).build()) {
+        inventoryManager.addItem(new CustomItem(11, new ItemBuilder(Material.OAK_SIGN).name(questionTitle).lore(List.of(questionLore)).build()) {
             @Override
             public void onClick(InventoryClickEvent event) {
                 createReport(player, ReportType.QUESTION);
             }
         });
-        inventoryManager.setItem(new CustomItem(13, new ItemBuilder(Material.LAVA_BUCKET).lore(List.of(bugLore)).name(bugTitle).build()) {
+        inventoryManager.addItem(new CustomItem(13, new ItemBuilder(Material.LAVA_BUCKET).lore(List.of(bugLore)).name(bugTitle).build()) {
             @Override
             public void onClick(InventoryClickEvent event) {
                 createReport(player, ReportType.BUG);
             }
         });
-        inventoryManager.setItem(new CustomItem(15, new ItemBuilder(Material.IRON_SWORD).name(playerReportTitle).lore(List.of(playerReportLore)).build()) {
+        inventoryManager.addItem(new CustomItem(15, new ItemBuilder(Material.IRON_SWORD).name(playerReportTitle).lore(List.of(playerReportLore)).build()) {
             @Override
             public void onClick(InventoryClickEvent event) {
                 createReport(player, ReportType.PLAYER);
             }
         });
+        inventoryManager.openInventoryForPlayer(player);
         return true;
     }
 
-    private final void createReport(Player player, ReportType reportType) {
+    public static void createReport(Player player, ReportType reportType) {
         reportPlayers.put(player, new Report(reportType, null));
         player.sendMessage(MessageEnum.MESSAGE_REPORT_OPENED.getMessage());
         player.closeInventory();

@@ -1,8 +1,8 @@
 package org.fauli.reports.utils.InventoryUtils;
 
 import lombok.Getter;
-import lombok.Setter;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -10,85 +10,66 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import org.fauli.reports.Main;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 public class InventoryManager implements Listener {
+    @Getter
+    private final Inventory inventory;
+    private final boolean fillRest;
+    private final List<CustomItem> customItems;
 
-    @Getter
-    @Setter
-    private Component name;
-    @Getter
-    @Setter
-    private int size;
-    @Getter
-    @Setter
-    private UUID uuid;
-    @Getter
-    @Setter
-    public boolean canceled;
-    @Getter
-    @Setter
-    private boolean fillRest;
-    @Setter
-    private Inventory inv;
-    private final Map<Integer, CustomItem> customItems = new HashMap<>();
-
-    public InventoryManager(Player player, int size, Component name, boolean canceled, boolean fillRest) {
-        this.size = size;
-        this.name = name;
-        this.uuid = player.getUniqueId();
-        this.canceled = canceled;
+    public InventoryManager(Component title, int size, boolean fillRest) {
+        this.inventory = Bukkit.createInventory(null, size, title);
         this.fillRest = fillRest;
-        this.inv = Bukkit.createInventory(null, size, name);
-
-        if (this.fillRest) {
-            for (int i = 0; i < this.size; i++) {
-                if (inv.getItem(i) == null) {
-                    inv.setItem(i, new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).name(Component.text("")).build());
-                }
-            }
-        }
-        player.openInventory(inv);
-
+        this.customItems = new ArrayList<>();
         Bukkit.getPluginManager().registerEvents(this, Main.getInstance());
+        if (fillRest) {
+            fillWithBlackGlass();
+        }
     }
 
-    public InventoryManager(Player player, int size, Component name) {
-        this(player, size, name, true, true);
+    public void openInventoryForPlayer(Player player) {
+        player.openInventory(inventory);
     }
 
-    public Inventory getInventory() {
-        return inv;
-    }
-
-    public void setItem(CustomItem customItem) {
-        inv.setItem(customItem.slot, customItem.itemStack);
-        customItems.put(customItem.slot, customItem);
+    private void fillWithBlackGlass() {
+        ItemStack blackGlass = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+        inventory.setContents(new ItemStack[inventory.getSize()]); // Clear the inventory
+        for (int i = 0; i < inventory.getSize(); i++) {
+            inventory.setItem(i, blackGlass);
+        }
     }
 
     public void addItem(CustomItem customItem) {
-        int emptySlot = inv.firstEmpty();
-        if (emptySlot != -1) {
-            inv.setItem(emptySlot, customItem.itemStack);
-            customItems.put(emptySlot, customItem);
+        if (customItem.slot >= 0) {
+            inventory.setItem(customItem.slot, customItem.itemStack);
+        } else {
+            for (int i = 0; i < inventory.getSize(); i++) {
+                if (inventory.getItem(i) == null || inventory.getItem(i).getType() == Material.AIR) {
+                    inventory.setItem(i, customItem.itemStack);
+                    break;
+                }
+            }
         }
+        customItems.add(customItem);
     }
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
-        if (!(event.getWhoClicked() instanceof Player player)) return;
-        if (!player.getUniqueId().equals(uuid)) return;
-
-        int slot = event.getRawSlot();
-        CustomItem customItem = customItems.get(slot);
-
-        if (customItem != null) {
-            customItem.onClick(event);
+        if (event.getInventory().equals(inventory)) {
             event.setCancelled(true);
+            for (CustomItem item : customItems) {
+                if (event.getSlot() == item.slot) {
+                    item.onClick(event);
+                    break;
+                }
+            }
         }
     }
 }
