@@ -52,45 +52,33 @@ public class ReportCommand implements CommandExecutor {
         inventoryManager.setItem(new CustomItem(11, new ItemBuilder(Material.OAK_SIGN).name(questionTitle).lore(List.of(questionLore)).build()) {
             @Override
             public void onClick(InventoryClickEvent event) {
-                reportPlayers.put(player, new Report(ReportType.QUESTION, null));
-                player.sendMessage(MessageEnum.MESSAGE_REPORT_OPENED.getMessage());
-                player.closeInventory();
-                for (Player all : Bukkit.getOnlinePlayers()) {
-                    if (!all.hasPermission("Reports.ViewReports")) {
-                        return;
-                    }
-                    all.sendMessage(MiniMessage.miniMessage().deserialize("<b><gradient:#8918A1:#526DA2>There is a new Report!</gradient></b>"));
-                }
+                createReport(player, ReportType.QUESTION);
             }
         });
         inventoryManager.setItem(new CustomItem(13, new ItemBuilder(Material.LAVA_BUCKET).lore(List.of(bugLore)).name(bugTitle).build()) {
             @Override
             public void onClick(InventoryClickEvent event) {
-                reportPlayers.put(player, new Report(ReportType.BUG, null));
-                player.sendMessage(MessageEnum.MESSAGE_REPORT_OPENED.getMessage());
-                player.closeInventory();
-                for (Player all : Bukkit.getOnlinePlayers()) {
-                    if (!all.hasPermission("Reports.ViewReports")) {
-                        return;
-                    }
-                    all.sendMessage(MiniMessage.miniMessage().deserialize("<b><gradient:#8918A1:#526DA2>There is a new Report!</gradient></b>"));
-                }
+                createReport(player, ReportType.BUG);
             }
         });
         inventoryManager.setItem(new CustomItem(15, new ItemBuilder(Material.IRON_SWORD).name(playerReportTitle).lore(List.of(playerReportLore)).build()) {
             @Override
             public void onClick(InventoryClickEvent event) {
-                reportPlayers.put(player, new Report(ReportType.PLAYER, null));
-                player.sendMessage(MessageEnum.MESSAGE_REPORT_OPENED.getMessage());
-                player.closeInventory();
-                for (Player all : Bukkit.getOnlinePlayers()) {
-                    if (!all.hasPermission("Reports.ViewReports")) {
-                        return;
-                    }
-                    all.sendMessage(MiniMessage.miniMessage().deserialize("<b><gradient:#8918A1:#526DA2>There is a new Report!</gradient></b>"));
-                }
+                createReport(player, ReportType.PLAYER);
             }
         });
         return true;
+    }
+
+    private final void createReport(Player player, ReportType reportType) {
+        reportPlayers.put(player, new Report(reportType, null));
+        player.sendMessage(MessageEnum.MESSAGE_REPORT_OPENED.getMessage());
+        player.closeInventory();
+        for (Player all : Bukkit.getOnlinePlayers()) {
+            if (!all.hasPermission("Reports.ViewReports")) {
+                return;
+            }
+            all.sendMessage(MiniMessage.miniMessage().deserialize("<b><gradient:#8918A1:#526DA2>There is a new Report!</gradient></b>"));
+        }
     }
 }
