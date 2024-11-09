@@ -40,7 +40,7 @@ public class InventoryManager implements Listener {
 
     private void fillWithBlackGlass() {
         ItemStack blackGlass = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
-        inventory.setContents(new ItemStack[inventory.getSize()]); // Clear the inventory
+        inventory.setContents(new ItemStack[inventory.getSize()]);
         for (int i = 0; i < inventory.getSize(); i++) {
             inventory.setItem(i, blackGlass);
         }
