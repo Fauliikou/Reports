@@ -33,7 +33,7 @@ public class ReportChatCommand implements CommandExecutor {
 
         String message = String.join(" ", args);
         report.getStaffMember().sendMessage("§8[§5Report§8] §5" + player.getName() + "§8: §7" + message);
-        player.sendMessage("§8[§5Report§8] §7" + message);
+        player.sendMessage("§8[§5Report§8] §5" + player.getName() + "§8: §7" + message);
 
         return false;
     }

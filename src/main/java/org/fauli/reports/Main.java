@@ -6,10 +6,8 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.fauli.reports.commands.CloseReportCommand;
-import org.fauli.reports.commands.ReportChatCommand;
-import org.fauli.reports.commands.ReportCommand;
-import org.fauli.reports.commands.ReportListCommand;
+import org.checkerframework.checker.units.qual.A;
+import org.fauli.reports.commands.*;
 import org.fauli.reports.common.util.ReportService;
 
 public final class Main extends JavaPlugin {
@@ -33,6 +31,7 @@ public final class Main extends JavaPlugin {
         getCommand("reportlist").setExecutor(new ReportListCommand());
         getCommand("reportchat").setExecutor(new ReportChatCommand());
         getCommand("closereport").setExecutor(new CloseReportCommand());
+        getCommand("acceptreport").setExecutor(new AcceptReportCommand());
 
         getSLF4JLogger().info("Reports plugin by Fauli started!");
     }

@@ -1,12 +1,13 @@
 package org.fauli.reports.common.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 @AllArgsConstructor
-@Getter
+@Data
 public class Report {
 
     private final Player creator;

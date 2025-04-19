@@ -7,5 +7,6 @@ commands:
   reportlist:
   reportchat:
   closereport:
+  acceptreport:
 authors:
   - Fauliikou

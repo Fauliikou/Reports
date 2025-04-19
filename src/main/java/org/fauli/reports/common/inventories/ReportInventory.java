@@ -25,6 +25,7 @@ public class ReportInventory {
             inventoryBuilder.addItem(new CustomItem(slot, new ItemBuilder(reportType.getDisplayItem()).name(text(reportType.getName())).build()) {
                 @Override
                 public void onClick(InventoryClickEvent event) {
+                    player.sendMessage(text("§5Report created§8: §7" + reportType.getName()));
                     Report report = new Report(player, null, reportType);
                     ReportService reportService = Main.getInstance().reportService;
                     reportService.createReport(player, report);
