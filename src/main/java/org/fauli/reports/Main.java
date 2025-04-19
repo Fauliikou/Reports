@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.fauli.reports.commands.ReportCommand;
+import org.fauli.reports.commands.ReportListCommand;
 import org.fauli.reports.common.util.ReportService;
 
 public final class Main extends JavaPlugin {
@@ -27,6 +28,7 @@ public final class Main extends JavaPlugin {
         PluginManager pluginManager = Bukkit.getPluginManager();
 
         getCommand("report").setExecutor(new ReportCommand());
+        getCommand("reportlist").setExecutor(new ReportListCommand());
 
         getSLF4JLogger().info("Reports plugin by Fauli started!");
     }

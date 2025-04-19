@@ -4,5 +4,6 @@ main: org.fauli.reports.Main
 api-version: '1.20'
 commands:
   report:
+  reportlist:
 authors:
   - Fauliikou
