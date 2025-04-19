@@ -9,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.checkerframework.checker.units.qual.A;
 import org.fauli.reports.commands.*;
 import org.fauli.reports.common.util.ReportService;
+import org.fauli.reports.listener.PlayerQuitListener;
 
 public final class Main extends JavaPlugin {
 
@@ -32,6 +33,8 @@ public final class Main extends JavaPlugin {
         getCommand("reportchat").setExecutor(new ReportChatCommand());
         getCommand("closereport").setExecutor(new CloseReportCommand());
         getCommand("acceptreport").setExecutor(new AcceptReportCommand());
+
+        pluginManager.registerEvents(new PlayerQuitListener(), this);
 
         getSLF4JLogger().info("Reports plugin by Fauli started!");
     }
