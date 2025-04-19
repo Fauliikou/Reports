@@ -12,10 +12,10 @@ import java.util.UUID;
 public class ReportService {
 
     @Getter
-    public HashMap<Report, UUID> reports = new HashMap<>();
+    public HashMap<UUID, Report> reports = new HashMap<>();
 
     public void createReport(Player creator, Report report) {
-        reports.put(report, creator.getUniqueId());
+        reports.put(creator.getUniqueId(), report);
         Main.getInstance().getSLF4JLogger().info("Report created by " + creator.getName() + ": " + report);
 
         for (Player all : Bukkit.getOnlinePlayers()) {
@@ -26,7 +26,8 @@ public class ReportService {
     }
 
     public void closeReport(Report report) {
-        reports.remove(report);
+        Player creator = report.getCreator();
+        reports.remove(creator.getUniqueId());
         Main.getInstance().getSLF4JLogger().info("Report closed: " + report);
 
         for (Player all : Bukkit.getOnlinePlayers()) {

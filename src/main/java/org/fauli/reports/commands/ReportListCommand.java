@@ -30,7 +30,7 @@ public class ReportListCommand implements CommandExecutor {
         if (reportService.getReports().isEmpty()) {
             player.sendMessage("§7No reports available.");
         } else {
-            reportService.getReports().forEach((report, creator) -> {
+            reportService.getReports().forEach((creator, report) -> {
 
                 String accepted = !report.isAccepted() ? "§cnot accepted" : "§aaccepted";
 
