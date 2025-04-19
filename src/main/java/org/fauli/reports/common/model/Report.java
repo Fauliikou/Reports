@@ -2,9 +2,11 @@ package org.fauli.reports.common.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 @AllArgsConstructor
+@Getter
 public class Report {
 
     private final Player creator;
@@ -18,10 +20,11 @@ public class Report {
     @AllArgsConstructor
     @Getter
     public enum ReportType {
-        BUG("Bug"),
-        QUESTION("Question"),
-        PLAYER_REPORT("Player Report");
+        BUG("Bug", Material.LAVA_BUCKET),
+        QUESTION("Question", Material.OAK_SIGN),
+        PLAYER_REPORT("Player Report", Material.IRON_SWORD);
 
         private final String name;
+        private final Material displayItem;
     }
 }
