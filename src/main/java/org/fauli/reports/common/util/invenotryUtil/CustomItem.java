@@ -1,4 +1,4 @@
-package org.fauli.reports.utils.InventoryUtils;
+package org.fauli.reports.common.util.invenotryUtil;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;

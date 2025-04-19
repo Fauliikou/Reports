@@ -1,8 +1,6 @@
-package org.fauli.reports.utils.InventoryUtils;
+package org.fauli.reports.common.util.invenotryUtil;
 
-import lombok.Getter;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -14,35 +12,38 @@ import org.bukkit.inventory.ItemStack;
 import org.fauli.reports.Main;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class InventoryManager implements Listener {
-    @Getter
+public class InventoryBuilder implements Listener {
+
     private final Inventory inventory;
     private final boolean fillRest;
     private final List<CustomItem> customItems;
 
-    public InventoryManager(Component title, int size, boolean fillRest) {
+    public InventoryBuilder(Component title, int size, boolean fillRest) {
         this.inventory = Bukkit.createInventory(null, size, title);
         this.fillRest = fillRest;
         this.customItems = new ArrayList<>();
         Bukkit.getPluginManager().registerEvents(this, Main.getInstance());
         if (fillRest) {
-            fillWithBlackGlass();
+            fillInventory();
         }
+    }
+
+    public Inventory getInventory() {
+        return inventory;
     }
 
     public void openInventoryForPlayer(Player player) {
         player.openInventory(inventory);
     }
 
-    private void fillWithBlackGlass() {
-        ItemStack blackGlass = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+    private void fillInventory() {
+        ItemStack fillStuff = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+        fillStuff.editMeta(meta -> meta.setCustomModelData(10));
         inventory.setContents(new ItemStack[inventory.getSize()]);
         for (int i = 0; i < inventory.getSize(); i++) {
-            inventory.setItem(i, blackGlass);
+            inventory.setItem(i, fillStuff);
         }
     }
 
