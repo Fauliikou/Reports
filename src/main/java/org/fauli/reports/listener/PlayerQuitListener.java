@@ -16,6 +16,10 @@ public class PlayerQuitListener implements org.bukkit.event.Listener {
 
         Report report = reportService.getReports().get(player.getUniqueId());
 
+        if (report == null) {
+            return;
+        }
+
         if (reportService.getReports().containsKey(player.getUniqueId())) {
             Player staffMember = report.getStaffMember();
 
