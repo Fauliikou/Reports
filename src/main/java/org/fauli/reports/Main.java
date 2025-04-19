@@ -6,16 +6,22 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.fauli.reports.common.util.ReportService;
 
 public final class Main extends JavaPlugin {
 
     @Getter
     public static Main instance;
 
+    @Getter
+    public ReportService reportService;
+
     @Override
     public void onEnable() {
 
         instance = this;
+
+        reportService = new ReportService();
 
         PluginManager pluginManager = Bukkit.getPluginManager();
 
